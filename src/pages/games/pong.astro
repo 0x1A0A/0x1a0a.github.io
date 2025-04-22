@@ -1,0 +1,53 @@
+---
+import Layout from "../../layouts/Layout.astro";
+---
+
+<Layout>
+  <div class="size-full flex flex-col justify-center items-center text-gray-50">
+    <main class="w-[1280px] flex flex-col gap-2">
+      <span class="text-xl"> _Pong </span>
+      <section
+        id="game-container"
+        class="w-[1280px] h-[720px] bg-zinc-900 relative flex justify-center items-center"
+      >
+        <button
+          data-play-button
+          class="absolute text-3xl ring-1 px-8 py-1 aria-pressed:animate-bounce aria-pressed:ring-0 hover:ring-4 hover:px-10 hover:font-bold transition-all aria-pressed:pointer-events-none"
+        >
+          Play
+        </button>
+      </section>
+    </main>
+  </div>
+</Layout>
+
+<script>
+  const button = document.querySelector("[data-play-button]");
+
+  button?.addEventListener("click", () => {
+    const canvas = document.createElement("canvas");
+    canvas.id = "bevy-canvas";
+
+    const game = document.querySelector("#game-container")!;
+
+    game.appendChild(canvas);
+    button.setAttribute("disabled", "true");
+    button.setAttribute("aria-pressed", "true");
+    button.textContent = "Loading ...";
+
+    const init = import("../../assets/pong/pong");
+
+    init.then((pong) => {
+      pong.default().catch((error) => {
+        game.removeChild(button);
+        if (
+          !error.message.startsWith(
+            "Using exceptions for control flow, don't mind me. This isn't actually an error!",
+          )
+        ) {
+          throw error;
+        }
+      });
+    });
+  });
+</script>

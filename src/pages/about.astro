@@ -1,0 +1,27 @@
+---
+import Layout from "../layouts/Layout.astro";
+---
+
+<Layout>
+  <div
+    class="size-full text-gray-50 flex flex-col place-content-center place-items-center animate-pulse text-3xl font-bold"
+  >
+    <span>Under constructing</span>
+    <div class="flex justify-center items-center align-center">
+      <span id="loading" class="text-lime-400"> | </span>
+    </div>
+  </div>
+</Layout>
+
+<script>
+  const element = document.getElementById("loading")!;
+  let i = 1;
+  setInterval(() => {
+    let chars = "|/-\\".split("");
+
+    element.textContent = chars[i];
+
+    i += chars.length + 1;
+    i %= chars.length;
+  }, 500);
+</script>
