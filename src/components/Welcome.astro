@@ -1,7 +1,30 @@
+---
+import { Icon } from "astro-icon/components";
+---
+
 <main
   class="font-bold text-3xl text-gray-50 flex flex-col h-full w-full place-content-center place-items-center"
 >
   <span>Welcome_</span>
   <section>Thanks for visiting my site, Have a great day.</section>
   <section class="mt-4 animate-bounce text-lime-400">(/^^)/</section>
+  <section
+    id="links"
+    class="text-sm bg-zinc-900 px-2 py-2 rounded-full mt-6 flex flex-row gap-2 ring-1 ring-neutral-700 transition-all hover:px-4 hover:gap-4"
+  >
+    <a
+      id="linkedin"
+      href="https://www.linkedin.com/in/apisit-samorod-a43009252/"
+      class="bg-lime-50 rounded-full w-6 h-6 flex place-items-center place-content-center hover:bg-lime-400 transition-all"
+    >
+      <Icon name="mdi:linkedin" class="text-gray-950" />
+    </a>
+    <a
+      href="https://github.com/0x1A0A"
+      id="github"
+      class="bg-lime-50 rounded-full w-6 h-6 flex place-items-center place-content-center hover:bg-lime-400 transition-all"
+    >
+      <Icon name="mdi:github" class="text-gray-950" />
+    </a>
+  </section>
 </main>
