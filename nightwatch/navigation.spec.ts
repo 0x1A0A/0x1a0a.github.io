@@ -1,6 +1,6 @@
 import type { NightwatchTests } from "nightwatch";
 
-const navagation: NightwatchTests = {
+const navigation: NightwatchTests = {
   "Home page": async () => {
     await browser.navigateTo("/");
     await browser.element
@@ -17,7 +17,7 @@ const navagation: NightwatchTests = {
       .click();
 
     await browser.element
-      .findByText("Under constructing", { exact: false })
+      .findByText("Under construction", { exact: false })
       .assert.visible();
 
     await browser.element.findByRole("navigation").assert.visible();
@@ -51,7 +51,9 @@ const navagation: NightwatchTests = {
     await browser.element.findByRole("button").click();
 
     await browser.element.find("#bevy-canvas").assert.visible();
+
+    await browser.waitForElementNotPresent("[data-play-button]");
   },
 };
 
-export default navagation;
+export default navigation;
