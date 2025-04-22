@@ -1,5 +1,9 @@
 ---
 const { pathname } = Astro.url;
+const links = [
+  { name: "Game", path: "/games" },
+  { name: "About", path: "/about" },
+];
 ---
 
 <nav class="text-white p-2 grid grid-cols-[auto_1fr] bg-zinc-900">
@@ -14,23 +18,20 @@ const { pathname } = Astro.url;
     >
   </section>
   <section class:list={["place-self-end flex flex-row gap-2"]}>
-    <a
-      href="/games"
-      class:list={[
-        "group transition-all",
-        pathname.startsWith("/games")
-          ? "bg-lime-400 text-gray-950"
-          : "text-lime-400",
-      ]}>[<span class="group-hover:px-2 transition-all">Game</span>]</a
-    >
-    <a
-      href="/about"
-      class:list={[
-        "group transition-all",
-        pathname.startsWith("/about")
-          ? "bg-lime-400 text-gray-950"
-          : "text-lime-400",
-      ]}>[<span class="group-hover:px-2 transition-all">About</span>]</a
-    >
+    {
+      links.map(({ name, path }) => (
+        <a
+          href={path}
+          class:list={[
+            "group transition-all",
+            pathname.startsWith(path)
+              ? "bg-lime-400 text-gray-950"
+              : "text-lime-400",
+          ]}
+        >
+          [<span class="group-hover:px-2 transition-all">{name}</span>]
+        </a>
+      ))
+    }
   </section>
 </nav>
