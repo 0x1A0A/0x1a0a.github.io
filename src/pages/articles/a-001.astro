@@ -1,0 +1,69 @@
+---
+import LayoutArticle from "../../layouts/LayoutArticle.astro";
+import { Content } from "./contents/a-001.md";
+import Prose from "../../components/Prose.astro";
+---
+
+<LayoutArticle>
+  <div
+    id="hidden-nav"
+    class="fixed p-2 px-4 w-full text-lime-400 text-xl font-bold"
+  >
+    <span class="aria-hidden:-top-[3ch] relative top-0 transition-all">
+      <a href="/articles" data-testid="back-to-articles"> DFalse </a>
+    </span>
+  </div>
+  <article class="p-8 px-48">
+    <Prose>
+      <Content />
+    </Prose>
+  </article>
+
+  <script>
+    const nav = document.querySelector("#hidden-nav")!;
+    let isOnTop = true;
+    let hovering = false;
+    let prevY = 0;
+    let lowest = 0;
+    let upTrigger = false;
+
+    function show() {
+      nav.firstElementChild!.removeAttribute("aria-hidden");
+    }
+
+    function hide() {
+      if (!isOnTop && !upTrigger)
+        nav.firstElementChild!.setAttribute("aria-hidden", "true");
+    }
+
+    nav.addEventListener("mouseenter", () => {
+      hovering = true;
+      show();
+    });
+    nav.addEventListener("mouseleave", () => {
+      hovering = false;
+      hide();
+    });
+
+    window.addEventListener("scroll", (e) => {
+      const MAX_RANGE = 60;
+      isOnTop = window.scrollY <= MAX_RANGE;
+
+      isOnTop ? show() : hovering || hide();
+
+      if (prevY > window.scrollY) {
+        if (!lowest) lowest = prevY;
+      } else {
+        lowest = 0;
+        upTrigger = false;
+      }
+
+      if (lowest - window.scrollY > 128) {
+        upTrigger = true;
+        show();
+      }
+
+      prevY = window.scrollY;
+    });
+  </script>
+</LayoutArticle>
